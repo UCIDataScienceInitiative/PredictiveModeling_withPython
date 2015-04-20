@@ -1,0 +1,104 @@
+NAME:  Pay for Play:  Are Baseball Salaries Based on Performance? 
+TYPE:  Census (see descriptive abstract below)
+SIZE:  337 observations, 18 variables 
+
+DESCRIPTIVE ABSTRACT:
+We consider as our population of interest the set of Major League
+Baseball players who played at least one game in both the 1991 and 1992
+seasons, excluding pitchers.  This dataset contains the 1992 salaries
+for that population, along with performance measures for each player
+from 1991.  Four categorical variables indicate how free each player
+was to move to other teams.
+
+SOURCES:  
+CNN/Sports Illustrated at
+http://www.cnnsi.com/baseball/mlb/historical_profiles/
+
+_Sacramento Bee_, 10/15/91.
+
+_The New York Times_, 11/13/91, 2/23/92, 11/19/92. 
+
+The Society for American Baseball Research (SABR) at
+ftp://skypoint.com/pub/members/a/ashbury/sabr/SALARIES
+   /1992_salaries_baseball
+
+VARIABLE DESCRIPTIONS:
+Columns
+ 1 -  4  Salary (in thousands of dollars)
+ 6 - 10  Batting average
+12 - 16  On-base percentage (OBP)
+18 - 20  Number of runs
+22 - 24  Number of hits
+26 - 27  Number of doubles
+29 - 30  Number of triples
+32 - 33  Number of home runs
+35 - 37  Number of runs batted in (RBI)
+39 - 41  Number of walks
+43 - 45  Number of strike-outs
+47 - 48  Number of stolen bases
+50 - 51  Number of errors
+     53  Indicator of "free agency eligibility"
+     55  Indicator of "free agent in 1991/2"
+     57  Indicator of "arbitration eligibility"
+     59  Indicator of "arbitration in 1991/2"
+61 - 79  Player's name (in quotation marks)
+
+SPECIAL NOTES:
+Players' batting averages are calculated as the ratio of number of hits
+to the number of hits plus the number of outs.  On-base percentage is
+the ratio of number of hits plus the number of walks to the number of
+hits plus the number of walks plus the number of outs.  A batting
+average above .300 is very good; OBP above .400 is excellent.  An RBI
+is obtained when a runner scores as a direct result of a player's
+at-bat.
+
+I believe that number of hits serves as a proxy for the amount of
+playing individuals did in the year.  There is a statistic for number
+of games played available, but this statistic counts any entry into the
+game, even defensive participation for a single out, the same as
+participating for the entire contest.
+
+STORY BEHIND THE DATA:  
+Baseball provides a rare opportunity to judge the value of an employee
+-- in this case, a player -- by standardized measures of performance.
+The question is, what are those characteristics worth?  In addition,
+the economic principle of freedom of movement for employees can be
+measured; that is, what financial benefit does a person gain if he is
+able to change employers?  Additionally, baseball fans may use their
+analysis of this dataset, in combination with other similar datasets,
+to gain insight into the salary structure in Major League Baseball.
+
+Additional information about these data can be found in the "Datasets
+and Stories" article "Pay for Play:  Are Baseball Salaries Based on
+Performance?" in the _Journal of Statistics Education_ (Watnik 1998).
+
+PEDAGOGICAL NOTES: 
+This dataset can be useful during a regression course using a text such
+as Neter, Kutner, Nachtsheim, and Wasserman (1996) or Christensen
+(1996).  The data require a transformation of the response variable and
+detection and elimination of outliers.  In addition, numerous model
+building techniques may be employed.  Students interested in baseball
+will note the nice interpretations of some of the coefficients,
+especially the fact that some models point to the newest free agents'
+being paid less than in previous years, and the players' union winning
+a grievance over that issue.
+
+For more advanced students, the instructor may choose to discuss the
+interpretation of estimated parameters in models where a
+log-transformation (for example) is employed.  In addition, with the
+large number of explanatory variables, making future predictions is a
+difficult issue.
+
+REFERENCES: 
+Christensen, R. (1996),  _Analysis of Variance, Design and Regression:
+Applied Statistical Methods_,  New York: Chapman and Hall.
+
+Neter, J., Kutner, M. H., Nachtsheim, C. J., and Wasserman, W. (1996),
+_Applied Linear Statistical Models_ (4th ed.), Chicago: Irwin.
+
+SUBMITTED BY:  
+Mitchell R. Watnik
+Department of Mathematics and Statistics
+University of Missouri-Rolla
+Rolla, MO  65409-0020
+mwatnik@umr.edu
