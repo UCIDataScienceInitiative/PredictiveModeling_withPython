@@ -1,134 +1,91 @@
 __author__ = 'kevin'
 
 import numpy as np
+import pandas as pd
 from sklearn import linear_model
 
 # parameters
-ndata = 300
+ndata = 400
 ndim = 100
-ndim_meaningful = 4
+ndim_meaningful = 3
 
-y_noise_std = 4
-betas_std = 3
+y_noise_std = 1
 
-alpha = .3  # regularization coefficient
+seed = 1
 
-seed = 2
 
 # basic setup
-ndim_noise = ndim - ndim_meaningful
 np.random.seed(seed)
+ndim_noise = ndim - ndim_meaningful
 
 def l2_error(y_true, y_pred):
     diff = (y_true-y_pred)
-    return np.sqrt(np.dot(diff, diff)) / len(diff)
+    return np.sqrt(np.dot(diff, diff))
 
+def model_name(model):
+    s = model.__str__().lower()
+    if "linearregression" in s:
+        return 'LinearRegression'
+    elif "lasso" in s:
+        return 'Lasso(a=%g)' % model.alpha
+    elif "ridge" in s:
+        return 'Ridge(a=%g)' % model.alpha
+    elif "elastic" in s:
+        return 'ElasticNet(a=%g, r=%g)' % (model.alpha, model.l1_ratio)
+    else:
+        raise ValueError("Unknown Model Type")
 
-# create beta, and training x and y
-# beta_true = np.random.randn(ndim_meaningful) * betas_std
-beta_true = np.arange(ndim_meaningful) + 1
-x_core_train = np.random.randn(ndata, ndim_meaningful)
-x_noise_train = np.random.randn(ndata, ndim_noise)
-x_full_train = np.hstack([x_core_train, x_noise_train])
-
-y_true_train = np.dot(x_core_train, beta_true) + np.random.randn(ndata) * y_noise_std
-
-# create test set data
-x_core_test = np.random.randn(ndata, ndim_meaningful)
-x_noise_test = np.random.randn(ndata, ndim_noise)
-x_full_test = np.hstack([x_core_test, x_noise_test])
-
-y_true_test = np.dot(x_core_test, beta_true) + np.random.randn(ndata) * y_noise_std
-
-
-# fit ordinary least squares model
-lm = linear_model.LinearRegression()
-lm.fit(x_full_train, y_true_train)
-y_lm = lm.predict(x_full_train)
-
-# fit l1 penalized OLS model
-lm1 = linear_model.Lasso(alpha=alpha)
-lm1.fit(x_full_train, y_true_train)
-y_lm1 = lm1.predict(x_full_train)
-
-# fit l2 penalized OLS model
-lm2 = linear_model.Ridge(alpha=alpha)
-lm2.fit(x_full_train, y_true_train)
-y_lm2 = lm2.predict(x_full_train)
-
-
-# # display parameters
-# n_padding_coefs = 2 # number of non-meaningful coefs to display
-# n_data_disp = 10
-
-# n_coefs_disp = ndim_meaningful + n_padding_coefs
-
-# # display true/learned coefs
-# beta_true_disp = np.concatenate([beta_true, np.zeros(n_padding_coefs)])
-# beta_lm_disp = lm.coef_[:n_coefs_disp]
-# beta_lm1_disp = lm1.coef_[:n_coefs_disp]
-# beta_lm2_disp = lm2.coef_[:n_coefs_disp]
-#
-# betas = np.hstack([beta_true_disp[:, np.newaxis],
-#                    beta_lm_disp[:, np.newaxis],
-#                    beta_lm1_disp[:, np.newaxis],
-#                    beta_lm2_disp[:, np.newaxis],
-#                    ])
-# print "BETAS:"
-# print '  % 11s % 11s % 11s % 11s' % ('true', 'lm', 'lm1', 'lm2')
-# print betas
-#
-# # display errors
-# print
-# print "Train / Test ERRORS:"
-# print '  % 11s % 11s % 11s % 11s' % ('true', 'lm', 'lm1', 'lm2')
-# print '  % 11f % 11f % 11f % 11f' % (0,
-#                                      l2_error(y_true_train, y_lm),
-#                                      l2_error(y_true_train, y_lm1),
-#                                      l2_error(y_true_train, y_lm2),)
-#
-#
-# # display predictions
-# preds = np.hstack([y_true_train[:, np.newaxis],
-#                    y_lm[:, np.newaxis],
-#                    y_lm1[:, np.newaxis],
-#                    y_lm2[:, np.newaxis]])
-
-# print
-# print "PREDS:"
-# print '  % 11s % 11s % 11s % 11s' % ('true', 'lm', 'lm1', 'lm2')
-# print preds[:n_data_disp]
-
-def display_results(models, model_names, betas_true, x_train, y_train, x_test, y_test):
-    n_padding_coefs = 3
-    n_dims_disp = len(betas_true) + n_padding_coefs
+def results_df(models, betas_true, x_train, y_train, x_test, y_test):
+    n_zeros = ndim - len(betas_true)
+    betas_true = np.concatenate([betas_true, np.zeros(n_zeros)])
 
     # fit models to training data
     [m.fit(x_train, y_train) for m in models]
 
-    # display learned betas
-    betas = [m.coef_[:n_dims_disp, np.newaxis] for m in models]
-    alphas = [m.alpha for m in models]
-    print "ALPHAS:"
-    print '  % 11s % 11s % 11s % 11s' % ('true', 'lm', 'lm1', 'lm2')
-    print alphas
+    betas = np.vstack([betas_true] + [m.coef_ for m in models])
+    beta_names = ['Beta ' + str(i) for i in range(ndim)]
 
-    betas_true_disp = np.concatenate([beta_true, np.zeros(n_padding_coefs)])[:, np.newaxis]
-    betas =  [betas_true_disp] + betas
-    print "BETAS:"
-    print '  % 11s % 11s % 11s % 11s' % ('true', 'lm', 'lm1', 'lm2')
-    print np.hstack(betas)
+    # set up model names
+    model_names =  ["True Coefs"] + [model_name(m) for m in models]
+    df = pd.DataFrame(data=betas, columns=beta_names, index=model_names)
 
-    # display mean squared error (MSE) for test data
+    y_preds = [m.predict(x_train) for m in models]
+    errors = [np.nan] + [l2_error(y_train, y_pred) for y_pred in y_preds]
+    df['Train Error'] = errors
+
     y_preds = [m.predict(x_test) for m in models]
-    errors = [l2_error(y_test, y_pred) for y_pred in y_preds]
-    errors = tuple([0] + errors)
-    print
-    print "Test Errors:"
-    print '  % 11s % 11s % 11s % 11s' % ('true', 'lm', 'lm1', 'lm2')
-    print '  % 11f % 11f % 11f % 11f' % errors
+    errors = [np.nan] + [l2_error(y_test, y_pred) for y_pred in y_preds]
+    df['Test Error'] = errors
 
-    # display predictions
 
-models = [lm, lm1, lm2]
-display_results(models, [], beta_true, x_full_train, y_true_train, x_full_test, y_true_test)
+    return df
+
+def create_models(alphas=(.01, .03, .1, .3, 1, 3), l1_ratios=(.7, .5, .3)):
+    models = [linear_model.LinearRegression()]
+    models.extend([linear_model.Ridge(a) for a in alphas])
+    models.extend([linear_model.Lasso(a) for a in alphas])
+    models.extend([linear_model.ElasticNet(a, l1_ratio=l) for a in alphas for l in l1_ratios])
+    return models
+
+
+# create true betas
+beta_true = np.arange(ndim_meaningful) + 1
+
+# create train data
+x_core_train = np.random.randn(ndata, ndim_meaningful)
+x_noise_train = np.random.randn(ndata, ndim_noise)
+x_full_train = np.hstack([x_core_train, x_noise_train])
+y_true_train = np.dot(x_core_train, beta_true) + np.random.randn(ndata) * y_noise_std
+
+# create test data
+x_core_test = np.random.randn(ndata, ndim_meaningful)
+x_noise_test = np.random.randn(ndata, ndim_noise)
+x_full_test = np.hstack([x_core_test, x_noise_test])
+y_true_test = np.dot(x_core_test, beta_true) + np.random.randn(ndata) * y_noise_std
+
+
+models = create_models()
+df = results_df(models, beta_true, x_full_train, y_true_train, x_full_test, y_true_test)
+disp_cols = ["Beta " + str(i) for i in range(ndim_meaningful+1)] + ['Train Error', 'Test Error']
+# print df.ix[:, [0, 1, 2, 3, 100, 101]]
+print df[disp_cols]
