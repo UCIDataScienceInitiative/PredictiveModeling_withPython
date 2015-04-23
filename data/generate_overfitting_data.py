@@ -98,8 +98,8 @@ from sklearn.cross_validation import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=4)
 
 # save temporalized version of data
-np.savez('mystery_data_old.npz', x_old=x_train, y_old=y_train, x_current=x_test)
-np.savez('mystery_data_later.npz', y_current=y_test)
+np.savez('mystery_data_old.npz', x_old=x_train, y_old=y_train, x_new=x_test)
+np.savez('mystery_data_later.npz', y_new=y_test)
 
 
 
