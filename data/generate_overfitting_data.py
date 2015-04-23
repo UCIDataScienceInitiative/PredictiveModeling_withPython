@@ -73,7 +73,6 @@ beta_true = np.arange(ndim_meaningful) + 1
 
 # # create train data
 # x_core_train = np.random.randn(ndata, ndim_meaningful)
-# x_noise_train = np.random.randn(ndata, ndim_noise)
 # x_full_train = np.hstack([x_core_train, x_noise_train])
 # y_true_train = np.dot(x_core_train, beta_true) + np.random.randn(ndata) * y_noise_std
 #
