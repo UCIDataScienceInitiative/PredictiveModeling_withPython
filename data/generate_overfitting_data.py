@@ -88,6 +88,7 @@ x_core = np.random.randn(ndata, ndim_meaningful)
 x_noise = np.random.randn(ndata, ndim_noise)
 X = np.hstack([x_core, x_noise])
 y = np.dot(x_core, beta_true) + np.random.randn(ndata) * y_noise_std
+
 np.savez('mystery_data.npz', X=X, y=y)
 with np.load('mystery_data.npz') as data:
     X = data['X']
@@ -95,6 +96,12 @@ with np.load('mystery_data.npz') as data:
 
 from sklearn.cross_validation import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=4)
+
+# save temporalized version of data
+np.savez('mystery_data_old.npz', x_old=x_train, y_old=y_train, x_current=x_test)
+np.savez('mystery_data_later.npz', y_current=y_test)
+
+
 
 models = create_models()
 df = results_df(models, beta_true, x_train, y_train, x_test, y_test)
