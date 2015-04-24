@@ -5,14 +5,13 @@ import pandas as pd
 from sklearn import linear_model
 
 # parameters
-ndata = 400
+ndata_train = 400
 ndim = 100
 ndim_meaningful = 3
 
 y_noise_std = 1
 
 seed = 1
-
 
 # basic setup
 np.random.seed(seed)
@@ -72,22 +71,22 @@ def create_models(alphas=(.01, .03, .1, .3, 1, 3), l1_ratios=(.7, .5, .3)):
 beta_true = np.arange(ndim_meaningful) + 1
 
 # # create train data
-# x_core_train = np.random.randn(ndata, ndim_meaningful)
+# x_core_train = np.random.randn(ndata_train, ndim_meaningful)
 # x_full_train = np.hstack([x_core_train, x_noise_train])
-# y_true_train = np.dot(x_core_train, beta_true) + np.random.randn(ndata) * y_noise_std
+# y_true_train = np.dot(x_core_train, beta_true) + np.random.randn(ndata_train) * y_noise_std
 #
 # # create test data
-# x_core_test = np.random.randn(ndata, ndim_meaningful)
-# x_noise_test = np.random.randn(ndata, ndim_noise)
+# x_core_test = np.random.randn(ndata_train, ndim_meaningful)
+# x_noise_test = np.random.randn(ndata_train, ndim_noise)
 # x_full_test = np.hstack([x_core_test, x_noise_test])
-# y_true_test = np.dot(x_core_test, beta_true) + np.random.randn(ndata) * y_noise_std
+# y_true_test = np.dot(x_core_test, beta_true) + np.random.randn(ndata_train) * y_noise_std
 
 # create full dataset
-ndata *= 2
-x_core = np.random.randn(ndata, ndim_meaningful)
-x_noise = np.random.randn(ndata, ndim_noise)
+ndata_train *= 2
+x_core = np.random.randn(ndata_train, ndim_meaningful)
+x_noise = np.random.randn(ndata_train, ndim_noise)
 X = np.hstack([x_core, x_noise])
-y = np.dot(x_core, beta_true) + np.random.randn(ndata) * y_noise_std
+y = np.dot(x_core, beta_true) + np.random.randn(ndata_train) * y_noise_std
 
 np.savez('mystery_data.npz', X=X, y=y)
 with np.load('mystery_data.npz') as data:
@@ -95,13 +94,11 @@ with np.load('mystery_data.npz') as data:
     y = data['y']
 
 from sklearn.cross_validation import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=2)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=.5, random_state=2)
 
 # save temporalized version of data
-np.savez('mystery_data_old.npz', x_old=x_train, y_old=y_train, x_new=x_test)
-np.savez('mystery_data_new_y.npz', y_new=y_test)
-
-
+np.savez('mystery_data_old.npz', celeb_data_old=x_train, popularity_old=y_train, celeb_data_new=x_test)
+np.savez('mystery_data_new.npz', popularity_new=y_test)
 
 models = create_models()
 df = results_df(models, beta_true, x_train, y_train, x_test, y_test)
