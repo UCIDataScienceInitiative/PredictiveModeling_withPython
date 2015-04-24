@@ -6,4 +6,4 @@ Welcome to the UCI Data Science Initiative's Predictive Modeling with Python cou
 2.  Download this repository.  The easiest way is to download the entire repository as a ZIP file by clicking [here](https://github.com/UCIDataScienceInitiative/PredictiveModeling_withPython/archive/master.zip) or the ```Download ZIP``` button at the bottom of the right-hand column.  Unzip the directory.  
 3.  Open a terminal and type ```ipython notebook```.  Navigate to the directory containing this repository.
 
-There are two sets of notebooks.  The ones you see above (in the repository's root) are incomplete, ready to be filled-in by the course's participants.  In the *Solutions* directory, you'll find the completed versions of the aforementioned notebooks.
+There are two sets of notebooks.  The ones you see above (in the repository's root) are incomplete, ready to be filled-in by the course's participants.  In the *Solutions* directory, you'll find the completed versions.
