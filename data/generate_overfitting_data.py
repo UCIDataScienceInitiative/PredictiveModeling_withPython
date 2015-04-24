@@ -9,7 +9,7 @@ from sklearn import linear_model
 ndata_train = 600
 ndata_test = 300
 
-ndim = 590
+ndim = 598
 ndim_meaningful = 3
 ndim_disp_padding = 2
 
