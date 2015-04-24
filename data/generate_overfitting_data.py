@@ -1,3 +1,4 @@
+from __future__ import division
 __author__ = 'kevin'
 
 import numpy as np
@@ -5,20 +6,24 @@ import pandas as pd
 from sklearn import linear_model
 
 # parameters
-ndata_train = 400
+ndata_train = 800
+ndata_test = 400
+
 ndim = 100
 ndim_meaningful = 3
+ndim_disp_padding = 2
 
 y_noise_std = 1
 
-seed = 1
+seed = 3
 
 # basic setup
 np.random.seed(seed)
 ndim_noise = ndim - ndim_meaningful
 
-def l2_error(y_true, y_pred):
-    diff = (y_true-y_pred)
+def mean_squared_error(y_true, y_pred):
+    print 'len(ytrue):', len(y_true)
+    diff = y_true - y_pred
     return np.sqrt(np.dot(diff, diff)) / len(y_true)
 
 def model_name(model):
@@ -49,11 +54,11 @@ def results_df(models, betas_true, x_train, y_train, x_test, y_test):
     df = pd.DataFrame(data=betas, columns=beta_names, index=model_names)
 
     y_preds = [m.predict(x_train) for m in models]
-    errors = [np.nan] + [l2_error(y_train, y_pred) for y_pred in y_preds]
+    errors = [np.nan] + [mean_squared_error(y_train, y_pred) for y_pred in y_preds]
     df['Train Error'] = errors
 
     y_preds = [m.predict(x_test) for m in models]
-    errors = [np.nan] + [l2_error(y_test, y_pred) for y_pred in y_preds]
+    errors = [np.nan] + [mean_squared_error(y_test, y_pred) for y_pred in y_preds]
     df['Test Error'] = errors
 
 
@@ -68,7 +73,7 @@ def create_models(alphas=(.01, .03, .1, .3, 1, 3), l1_ratios=(.7, .5, .3)):
 
 
 # create true betas
-beta_true = np.arange(ndim_meaningful) + 1
+beta_true = np.arange(ndim_meaningful) + ndim_disp_padding
 
 # # create train data
 # x_core_train = np.random.randn(ndata_train, ndim_meaningful)
@@ -82,27 +87,27 @@ beta_true = np.arange(ndim_meaningful) + 1
 # y_true_test = np.dot(x_core_test, beta_true) + np.random.randn(ndata_train) * y_noise_std
 
 # create full dataset
-ndata_train *= 2
-x_core = np.random.randn(ndata_train, ndim_meaningful)
-x_noise = np.random.randn(ndata_train, ndim_noise)
+ndata_total = ndata_train + ndata_test
+x_core = np.random.randn(ndata_total, ndim_meaningful)
+x_noise = np.random.randn(ndata_total, ndim_noise)
 X = np.hstack([x_core, x_noise])
-y = np.dot(x_core, beta_true) + np.random.randn(ndata_train) * y_noise_std
-
-# np.savez('mystery_data.npz', X=X, y=y)
-# with np.load('mystery_data.npz') as data:
-#     X = data['X']
-#     y = data['y']
+y = np.dot(x_core, beta_true) + np.random.randn(ndata_total) * y_noise_std
 
 from sklearn.cross_validation import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=.5, random_state=2)
+test_size = ndata_test/ndata_total
+print test_size
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=seed)
+
+print x_train.shape
+print x_test.shape
 
 # save temporalized version of data
-np.savez('cat_user_data_old.npz', user_data_yesterday=x_train, rating_yesterday=y_train, user_data_tomorrow=x_test)
-np.savez('cat_user_data_old.npz', rating_yesterday=y_test)
+np.savez('user_data_old.npz', user_data_yesterday=x_train, rating_yesterday=y_train, user_data_tomorrow=x_test)
+np.savez('user_data_old.npz', rating_tomorrow=y_test)
 
 models = create_models()
 df = results_df(models, beta_true, x_train, y_train, x_test, y_test)
-disp_cols = ["Beta " + str(i) for i in range(ndim_meaningful+1)] + ['Train Error', 'Test Error']
+disp_cols = ["Beta " + str(i) for i in range(ndim_meaningful + ndim_disp_padding)] + ['Train Error', 'Test Error']
 # print df.ix[:, [0, 1, 2, 3, 100, 101]]
 print df[disp_cols]
 
