@@ -23,7 +23,7 @@ ndim_noise = ndim - ndim_meaningful
 
 def mean_squared_error(y_true, y_pred):
     diff = y_true - y_pred
-    return np.sqrt(np.dot(diff, diff)) / len(y_true)
+    return np.dot(diff, diff) / len(y_true)
 
 def model_name(model):
     s = model.__str__().lower()
