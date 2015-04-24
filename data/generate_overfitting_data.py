@@ -6,10 +6,10 @@ import pandas as pd
 from sklearn import linear_model
 
 # parameters
-ndata_train = 800
-ndata_test = 400
+ndata_train = 600
+ndata_test = 300
 
-ndim = 100
+ndim = 590
 ndim_meaningful = 3
 ndim_disp_padding = 2
 
@@ -22,7 +22,6 @@ np.random.seed(seed)
 ndim_noise = ndim - ndim_meaningful
 
 def mean_squared_error(y_true, y_pred):
-    print 'len(ytrue):', len(y_true)
     diff = y_true - y_pred
     return np.sqrt(np.dot(diff, diff)) / len(y_true)
 
@@ -73,7 +72,7 @@ def create_models(alphas=(.01, .03, .1, .3, 1, 3), l1_ratios=(.7, .5, .3)):
 
 
 # create true betas
-beta_true = np.arange(ndim_meaningful) + ndim_disp_padding
+beta_true = np.arange(ndim_meaningful) + 1
 
 # # create train data
 # x_core_train = np.random.randn(ndata_train, ndim_meaningful)
@@ -102,8 +101,9 @@ print x_train.shape
 print x_test.shape
 
 # save temporalized version of data
-np.savez('user_data_old.npz', user_data_yesterday=x_train, rating_yesterday=y_train, user_data_tomorrow=x_test)
-np.savez('user_data_old.npz', rating_tomorrow=y_test)
+# np.savez('user_data_old.npz', user_data_yesterday=x_train, rating_yesterday=y_train, user_data_tomorrow=x_test)
+# np.savez('user_data_old.npz', rating_tomorrow=y_test)
+np.savez('overfitting_data.npz', x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test)
 
 models = create_models()
 df = results_df(models, beta_true, x_train, y_train, x_test, y_test)
