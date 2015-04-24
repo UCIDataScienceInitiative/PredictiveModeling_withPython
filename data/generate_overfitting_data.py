@@ -19,7 +19,7 @@ ndim_noise = ndim - ndim_meaningful
 
 def l2_error(y_true, y_pred):
     diff = (y_true-y_pred)
-    return np.sqrt(np.dot(diff, diff))
+    return np.sqrt(np.dot(diff, diff)) / len(y_true)
 
 def model_name(model):
     s = model.__str__().lower()
@@ -88,17 +88,17 @@ x_noise = np.random.randn(ndata_train, ndim_noise)
 X = np.hstack([x_core, x_noise])
 y = np.dot(x_core, beta_true) + np.random.randn(ndata_train) * y_noise_std
 
-np.savez('mystery_data.npz', X=X, y=y)
-with np.load('mystery_data.npz') as data:
-    X = data['X']
-    y = data['y']
+# np.savez('mystery_data.npz', X=X, y=y)
+# with np.load('mystery_data.npz') as data:
+#     X = data['X']
+#     y = data['y']
 
 from sklearn.cross_validation import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=.5, random_state=2)
 
 # save temporalized version of data
-np.savez('mystery_data_old.npz', celeb_data_old=x_train, popularity_old=y_train, celeb_data_new=x_test)
-np.savez('mystery_data_new.npz', popularity_new=y_test)
+np.savez('cat_user_data_old.npz', user_data_yesterday=x_train, rating_yesterday=y_train, user_data_tomorrow=x_test)
+np.savez('cat_user_data_old.npz', rating_yesterday=y_test)
 
 models = create_models()
 df = results_df(models, beta_true, x_train, y_train, x_test, y_test)
