@@ -60,8 +60,8 @@ def results_df(models, betas_true, x_train, y_train, x_test, y_test):
     errors = [np.nan] + [mean_squared_error(y_test, y_pred) for y_pred in y_preds]
     df['Test Error'] = errors
 
-
     return df
+
 
 def create_models(alphas=(.01, .03, .1, .3, 1, 3), l1_ratios=(.7, .5, .3)):
     models = [linear_model.LinearRegression()]
