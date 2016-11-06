@@ -10,8 +10,8 @@ Welcome to the UCI Data Science Initiative's Predictive Modeling with Python cou
 1. **Download the code repository**.  
  1. Click [here](https://github.com/UCIDataScienceInitiative/PredictiveModeling_withPython/archive/master.zip) to download a zip file containing this entire repository.
  1. Unzip that file into a directory you know how to find; you'll need it several times throughout the day.  
-1. **Start an ipython notebook server**.
- 1. Open a terminal and type ```ipython notebook```.  Navigate to the directory where you unzipped this repository.
+1. **Start an jupyter notebook server**.
+ 1. Open a terminal and type ```jupyter notebook```.  Navigate to the directory where you unzipped this repository.
  1. Open "Test Notebook.ipynb".
  1. Click "Cell" at the top of the opened notebook, followed by "Run All" and ensure that 1) there are no errors and that 2) the output from the first cell is the same as that in the second.  If it doesn't match, raise your hand.
  1. If everything looks good, close the browser tab containing the test notebook but keep open the tab listing all the other notebooks.
