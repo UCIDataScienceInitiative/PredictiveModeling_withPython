@@ -8,7 +8,7 @@ Welcome to the UCI Data Science Initiative's Predictive Modeling with Python cou
  1. Type ```conda update conda``` and press enter or return.  Confirm that you'd like it to make any changes that it offers.
  1. Type ```conda update anaconda``` and press enter or return.  Confirm that you'd like it to make any changes that it offers.
 1. **Download the code repository**.  
- 1. Click [here](https://github.com/UCIDataScienceInitiative/PredictiveModeling_withPython/archive/.zip) to download a zip file containing this entire repository.
+ 1. Click [here](https://github.com/UCIDataScienceInitiative/PredictiveModeling_withPython/archive/wi_17.zip) to download a zip file containing this entire repository.
  1. Unzip that file into a directory you know how to find; you'll need it several times throughout the day.  
 1. **Start an jupyter notebook server**.
  1. Open a terminal and type ```jupyter notebook```.  Navigate to the directory where you unzipped this repository.
