@@ -4,6 +4,7 @@
 ## Fall 2017
 
 Instructors: Preston Hinkle and John Schomberg
+
 TA: Prachi Mistry
 
 ### Schedule
