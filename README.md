@@ -1,19 +1,69 @@
 ![alt text](http://datascience.uci.edu/wp-content/uploads/sites/2/2014/09/data_science_logo_with_image1.png 'UCI_data_science')
 
-Welcome to the UCI Data Science Initiative's Predictive Modeling with Python course!  This repository contains the iPython Notebooks we'll be using throughout the day.  Here are the steps to get started:
+# UCI Data Science Initiative---Predictive Modeling with Python
+## Fall 2017
 
-1.  If you haven't do so already, download and **install the [Anaconda Scientific Python Distribution version 2.7](https://store.continuum.io/cshop/anaconda/)**.  If it offers to make itself your default Python distribution, allow it.
-1. Whether you've just installed Anaconda, or you have done so previously, you should now **update Anaconda** to the latest version of the distribution.  It changes a lot so do this today even if you did recently.
- 1. Open a terminal or command prompt.
- 1. Type ```conda update conda``` and press enter or return.  Confirm that you'd like it to make any changes that it offers.
- 1. Type ```conda update anaconda``` and press enter or return.  Confirm that you'd like it to make any changes that it offers.
-1. **Download the code repository**.  
- 1. Click [here](https://github.com/UCIDataScienceInitiative/PredictiveModeling_withPython/archive/sp_17.zip) to download a zip file containing this entire repository.
- 1. Unzip that file into a directory you know how to find; you'll need it several times throughout the day.  
-1. **Start an jupyter notebook server**.
- 1. Open a terminal and type ```jupyter notebook```.  Navigate to the directory where you unzipped this repository.
- 1. Open "Test Notebook.ipynb".
- 1. Click "Cell" at the top of the opened notebook, followed by "Run All" and ensure that 1) there are no errors and that 2) the output from the first cell is the same as that in the second.  If it doesn't match, raise your hand.
- 1. If everything looks good, close the browser tab containing the test notebook but keep open the tab listing all the other notebooks.
+Instructors: Preston Hinkle and John Schomberg
+TA: Prachi Mistry
 
-There are two sets of notebooks.  The ones you see above (in the repository's root) are incomplete, ready to be filled-in by the course's participants.  In the *Solutions* directory, you'll find the completed versions.
+### Schedule
+
+
+| Time        |                                                                   |
+|-------------|-------------------------------------------------------------------|
+| 8:30-9:00   | Sign-in (coffee and bagels)                                       |
+| 9:00-10:30  | Introduction to the Jupyter notebook and Pandas                   |
+| 10:30-10:45 | Break                                                             |
+| 10:45-12:30 | Linear Regression and Predictive Modeling                         |
+| 12:30-1:00  | Break (Coffee)                                                    |
+| 1:00-2:30   | Regularization, Hyperparameter Optimization, and Cross-Validation |
+| 2:30-2:45   | Break (Coffee)                                                    |
+| 2:45-4:30   | Logistic Regression                                               |
+
+
+### Pre-workshop instructions
+
+0. Install Python
+
+Complete these steps even if you already have Python installed on your computer; e-mail your instructor if you have any concerns about this. We're using a specific distribution of Python known as 'Anaconda', which helps manage the Python installation and comes bundled with the scientific computing modules we'll use throughout the workshop. The workshop materials are all in Python 2.
+
+[Link to the download page.](https://www.anaconda.com/download)
+
+Download the 'Python 2.7 version', and make sure that you grab the correct version for your operating system (Windows, macOS, Linux, 32-bit vs 64-bit).
+
+Run the installer, which will install Anaconda2 on your system.
+
+1. Update your Python packages
+
+After downloading and installing Anaconda2, we need to make sure the packages are up-to-date, which we can do via the terminal:
+
+Windows: You should now have a program on your computer called 'Anaconda Prompt'. Run it.
+
+Mac & Linux: Open your usual terminal.
+
+With the terminal open, enter and run the following command:
+
+    conda update anaconda
+
+2. Download the workshop materials
+
+All of the materials for the workshop (and other workshops) can be found at the UCI Data Science Initiative github page.
+
+[Link to the 'Predictive Modeling with Python' repository.](https://github.com/UCIDataScienceInitiative/PredictiveModeling_withPython/tree/fall_17)
+
+Notice that this link is specifically to the branch for the Fall version of the workshop. Don't download from the master branch!
+
+Click on the green button on the right of the screen labeled 'Clone or download', then click 'Download ZIP'.
+
+After downloading, unzip the folder to a location on your hard drive that you will remember.
+
+
+3. Test your installation and download
+
+Now we'll verify that the installation works and that you can access the workshop materials. 
+
+Go back to the terminal you had open (step 1) and enter the command 'jupyter notebook'. A tab should open up in your browser. 
+
+Navigate to the workshop repository folder that you downloaded and unzipped. Click on 'Test Notebook.ipynb'; a new tab should open up in your browser. 
+
+Evaluate the notebook by pressing 'Cell'->'Run All' in the notebook's toolbar at the top of the page. The code should run and give you an output approximately matching what is on the page.
