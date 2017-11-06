@@ -2,7 +2,7 @@
 
 # UCI Data Science Initiative---Predictive Modeling with Python
 ## Fall 2017
-11-6-2017
+11-7-2017
 
 Instructors: Anna Kwa and Preston Hinkle
 
