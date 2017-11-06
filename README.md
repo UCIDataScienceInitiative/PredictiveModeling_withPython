@@ -17,7 +17,7 @@ TA: Phoebe Chua
 | 9:00-10:30  | Introduction to the Jupyter notebook and Pandas                   |
 | 10:30-10:45 | Break                                                             |
 | 10:45-12:30 | Linear Regression and Predictive Modeling                         |
-| 12:30-1:00  | Break (Coffee)                                                    |
+| 12:30-1:00  | Break (Lunch)                                                    |
 | 1:00-2:30   | Cross-validation and model selection |
 | 2:30-2:45   | Break (Coffee)                                                    |
 | 2:45-4:30   | Logistic Regression                                               |
@@ -64,7 +64,7 @@ After downloading, unzip the folder to a location on your hard drive that you wi
 
 Now we'll verify that the installation works and that you can access the workshop materials. 
 
-Go back to the terminal you had open (step 1) and enter the command `jupyter notebook`. A tab should open up in your browser. 
+Go back to the terminal you had open (step 1) and enter the command `jupyter notebook`. A tab should open up in your browser. **The Jupyter notebook application runs in the browser!**
 
 Navigate to the workshop repository folder that you downloaded and unzipped. Click on 'Test Notebook.ipynb'; a new tab should open up in your browser. 
 
