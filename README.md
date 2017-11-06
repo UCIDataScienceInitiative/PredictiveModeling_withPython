@@ -2,10 +2,11 @@
 
 # UCI Data Science Initiative---Predictive Modeling with Python
 ## Fall 2017
+11-6-2017
 
-Instructors: Preston Hinkle and John Schomberg
+Instructors: Anna Kwa and Preston Hinkle
 
-TA: Prachi Mistry
+TA: Phoebe Chua
 
 ### Schedule
 
@@ -17,7 +18,7 @@ TA: Prachi Mistry
 | 10:30-10:45 | Break                                                             |
 | 10:45-12:30 | Linear Regression and Predictive Modeling                         |
 | 12:30-1:00  | Break (Coffee)                                                    |
-| 1:00-2:30   | Regularization, Hyperparameter Optimization, and Cross-Validation |
+| 1:00-2:30   | Cross-validation and model selection |
 | 2:30-2:45   | Break (Coffee)                                                    |
 | 2:45-4:30   | Logistic Regression                                               |
 
